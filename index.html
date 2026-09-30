@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Recruiter Outreach System & CRM</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/generator.css">
+  <link rel="stylesheet" href="css/kanban.css">
+  <link rel="stylesheet" href="css/leads.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🚀</div>
+        <div class="logo-text">
+          <h2>OutreachAI</h2>
+          <span>LinkedIn CRM</span>
+        </div>
+      </div>
+
+      <ul class="nav-links">
+        <li class="nav-item active" data-view="generator">
+          <span class="icon">✨</span>
+          <span>Outreach Studio</span>
+        </li>
+        <li class="nav-item" data-view="kanban">
+          <span class="icon">📋</span>
+          <span>Kanban Pipeline</span>
+          <span class="nav-badge" id="nav-kanban-count">CRM</span>
+        </li>
+        <li class="nav-item" data-view="leads">
+          <span class="icon">👥</span>
+          <span>Recruiter Directory</span>
+        </li>
+        <li class="nav-item" data-view="analytics">
+          <span class="icon">📊</span>
+          <span>Analytics & Funnel</span>
+        </li>
+        <li class="nav-item" data-view="settings">
+          <span class="icon">⚙️</span>
+          <span>Profile & AI Engine</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-quick-profile">
+          <div class="user-avatar" id="sidebar-user-avatar">AM</div>
+          <div class="user-meta">
+            <h4 id="sidebar-user-name">Alex Morgan</h4>
+            <p id="sidebar-user-headline">Senior Full Stack Engineer</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-title">
+          <h1 id="header-title-text">Outreach Studio</h1>
+          <p id="header-subtitle-text">Craft hyper-personalized 4-step outreach sequences tailored to recruiters & target roles</p>
+        </div>
+        <div class="header-actions">
+          <button id="theme-toggle-btn" class="btn btn-secondary btn-icon-only" title="Toggle Light/Dark Theme">
+            ☀️
+          </button>
+        </div>
+      </header>
+
+      <!-- =========================================================================
+           VIEW 1: OUTREACH GENERATOR STUDIO
+           ========================================================================= -->
+      <section id="view-generator" class="view-panel active">
+        <!-- Quick Fill Bar & Account Tier Mode -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+          <div class="quick-fill-bar" style="margin-bottom: 0; flex-grow: 1;">
+            <span>⚡ <strong>Presets:</strong></span>
+            <button class="quick-fill-btn" data-preset="stripe">Stripe (Full Stack)</button>
+            <button class="quick-fill-btn" data-preset="datadog">Datadog (AI Systems)</button>
+            <button class="quick-fill-btn" data-preset="vercel">Vercel (Frontend Platform)</button>
+          </div>
+
+          <!-- Account Tier (Free 200 vs Premium 300) -->
+          <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.25); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">LinkedIn Tier:</span>
+            <select id="account-tier-select" class="form-select" style="padding: 0.25rem 0.5rem; font-size: 0.8rem; width: auto;">
+              <option value="200" selected>🔒 Free Account (Strict 200 Chars)</option>
+              <option value="300">⭐ Premium Account (300 Chars)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="generator-grid">
+          <!-- Input Form Card -->
+          <div class="card generator-card">
+            <div class="section-header-row">
+              <h3 class="section-title"><span>🎯</span> Recruiter & Role Context</h3>
+            </div>
+
+            <form id="generator-form">
+              <div class="generator-form-grid">
+                <div class="form-group">
+                  <label class="form-label" for="recruiter-name">Recruiter Name *</label>
+                  <input type="text" id="recruiter-name" class="form-input" placeholder="e.g. Noor / Sarah Jenkins" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="recruiter-role">Recruiter Title</label>
+                  <input type="text" id="recruiter-role" class="form-input" placeholder="e.g. Senior Tech Recruiter">
+                </div>
+                <div class="form-group grid-full">
+                  <label class="form-label" for="recruiter-email">Recruiter Email
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Optional</span>
+                  </label>
+                  <input type="email" id="recruiter-email" class="form-input" placeholder="e.g. sarah.jenkins@stripe.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="recruiter-company">Target Company *</label>
+                  <input type="text" id="recruiter-company" class="form-input" placeholder="e.g. Stripe" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="recruiter-domain">Company Domain</label>
+                  <input type="text" id="recruiter-domain" class="form-input" placeholder="e.g. Fintech / Payments">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="recruiter-country">Country
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Optional</span>
+                  </label>
+                  <input type="text" id="recruiter-country" class="form-input" placeholder="e.g. United States">
+                </div>
+                <div class="form-group grid-full">
+                  <label class="form-label" for="target-role">Target Role Opening</label>
+                  <input type="text" id="target-role" class="form-input" placeholder="e.g. Senior Full Stack Engineer">
+                </div>
+                <div class="form-group grid-full">
+                  <label class="form-label" for="opportunity-context">
+                    <span>Recruiter Post / Context Snippet</span>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Optional</span>
+                  </label>
+                  <textarea id="opportunity-context" class="form-textarea" rows="2" placeholder="e.g. Hiring for payment routing or looking for Angular / .NET / React engineers."></textarea>
+                </div>
+
+                <div class="form-group grid-full">
+                  <label class="form-label">Outreach Strategy & Tone</label>
+                  <div class="tone-selector">
+                    <div class="tone-chip active" data-tone="value_first">💎 Value-First (Solution)</div>
+                    <div class="tone-chip" data-tone="metric_driven">📈 Metric-Driven (KPIs)</div>
+                    <div class="tone-chip" data-tone="conversational">🤝 Conversational (Peer)</div>
+                    <div class="tone-chip" data-tone="mission_culture">🚀 Mission & Craft</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="lead-priority">Lead Priority</label>
+                  <select id="lead-priority" class="form-select">
+                    <option value="high">🔥 High Priority (Dream Company)</option>
+                    <option value="medium" selected>⭐ Medium Priority</option>
+                    <option value="normal">Normal</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem;">
+                <button type="submit" id="btn-generate-sequence" class="btn btn-primary" style="width: 100%;">
+                  <span>⚡</span> Generate Multi-Touch Sequence
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Output Preview Card -->
+          <div class="card sequence-output-container">
+            <div class="output-header">
+              <div class="output-title-group">
+                <h4>Sequence Touchpoints</h4>
+                <span id="output-timing-tag" class="output-timing-tag">Touchpoint 1 • Send with Connection Request</span>
+              </div>
+            </div>
+
+            <!-- 4 Sequence Tabs -->
+            <div class="sequence-tabs">
+              <button class="seq-tab-btn active" data-step="connectionNote">
+                <span class="tab-step">Step 1</span>
+                <span>Connection Note</span>
+              </button>
+              <button class="seq-tab-btn" data-step="followUp1">
+                <span class="tab-step">Step 2</span>
+                <span>Follow-Up 1</span>
+              </button>
+              <button class="seq-tab-btn" data-step="followUp2">
+                <span class="tab-step">Step 3</span>
+                <span>Follow-Up 2</span>
+              </button>
+              <button class="seq-tab-btn" data-step="inMail">
+                <span class="tab-step">Step 4</span>
+                <span>InMail / Pitch</span>
+              </button>
+            </div>
+
+            <!-- Message Area -->
+            <textarea id="sequence-message-output" class="message-preview-area"></textarea>
+
+            <!-- Character Counter & Actions -->
+            <div class="output-footer">
+              <div class="char-info-box">
+                <div class="char-bar-container">
+                  <div id="char-bar-fill" class="char-bar-fill"></div>
+                </div>
+                <span id="char-count-badge" class="char-counter-badge safe">0 / 200 chars</span>
+                <button id="btn-auto-shorten" class="btn btn-sm btn-secondary" style="display: none; padding: 0.2rem 0.5rem; font-size: 0.75rem; border-color: var(--accent-rose); color: var(--accent-rose);" title="Automatically compress message to fit strict character limit">
+                  ✂️ Auto-Fit Limit
+                </button>
+              </div>
+
+              <div class="output-action-btns">
+                <button id="btn-copy-message" class="btn btn-primary btn-copy">
+                  <span class="icon">📋</span>
+                  <span>Copy Message</span>
+                </button>
+                <button id="btn-save-to-pipeline" class="btn btn-secondary" title="Save Lead to Kanban CRM">
+                  <span>💾</span>
+                  <span>Save to Pipeline</span>
+                </button>
+                <button id="btn-open-linkedin" class="btn btn-secondary" title="Open Recruiter Search on LinkedIn">
+                  <span>🔗</span>
+                  <span>Find on LinkedIn</span>
+                </button>
+              </div>
+            </div>
+            <p id="char-limit-indicator" style="font-size: 0.75rem; color: var(--accent-emerald); margin-top: 0.25rem;">
+              ✓ Strict LinkedIn 200 character limit enforced for Free Accounts
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           VIEW 2: KANBAN PIPELINE CRM
+           ========================================================================= -->
+      <section id="view-kanban" class="view-panel">
+        <div class="kanban-board-wrapper">
+          <div id="kanban-board" class="kanban-board">
+            <!-- Populated dynamically by kanban.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           VIEW 3: RECRUITER DIRECTORY (LEADS TABLE)
+           ========================================================================= -->
+      <section id="view-leads" class="view-panel">
+        <div class="leads-toolbar">
+          <div class="search-filter-group">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="leads-search-input" class="form-input" placeholder="Search by recruiter name, company, or target role...">
+            </div>
+            <select id="leads-stage-filter" class="form-select" style="max-width: 180px;">
+              <option value="all">All Stages</option>
+              <option value="discovered">Discovered</option>
+              <option value="sent">Connection Sent</option>
+              <option value="connected">Connected</option>
+              <option value="followup1">Follow-Up 1</option>
+              <option value="followup2">Follow-Up 2</option>
+              <option value="interview">Interview</option>
+              <option value="offer">Offer / Closed</option>
+            </select>
+          </div>
+
+          <div class="header-actions">
+            <button id="btn-export-csv" class="btn btn-secondary">
+              <span>📥</span> Export CSV
+            </button>
+            <button id="btn-export-json" class="btn btn-secondary">
+              <span>💾</span> Backup JSON
+            </button>
+          </div>
+        </div>
+
+        <div class="card leads-table-card">
+          <div class="table-responsive">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Recruiter</th>
+                  <th>Company & Domain</th>
+                  <th>Target Role</th>
+                  <th>Pipeline Stage</th>
+                  <th>Priority</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-body">
+                <!-- Populated dynamically by leads.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           VIEW 4: ANALYTICS DASHBOARD
+           ========================================================================= -->
+      <section id="view-analytics" class="view-panel">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Total Sourced</span>
+              <div class="metric-icon" style="background: rgba(79, 70, 229, 0.15); color: #818cf8;">👥</div>
+            </div>
+            <div id="stat-total-leads" class="metric-value">0</div>
+            <div class="metric-subtitle">Recruiters in outreach pipeline</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Outreach Sent</span>
+              <div class="metric-icon" style="background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan);">✉️</div>
+            </div>
+            <div id="stat-sent-count" class="metric-value">0</div>
+            <div class="metric-subtitle">Connection requests initiated</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Connection Rate</span>
+              <div class="metric-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">📈</div>
+            </div>
+            <div id="stat-connected-rate" class="metric-value">0%</div>
+            <div class="metric-subtitle"><span class="metric-trend-up">Target: >35%</span> acceptance</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Interviews Scheduled</span>
+              <div class="metric-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber);">🎯</div>
+            </div>
+            <div id="stat-interview-count" class="metric-value">0</div>
+            <div class="metric-subtitle">Active recruiter interview loops</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 2rem;">
+          <h3 class="section-title" style="margin-bottom: 1.25rem;"><span>📊</span> Conversion Funnel</h3>
+          
+          <div class="funnel-container">
+            <div class="funnel-step">
+              <div class="funnel-step-header">
+                <span>1. Discovered / Sourced</span>
+                <span id="funnel-discovered-count">0 leads</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div id="funnel-discovered" class="funnel-bar-fill" style="background: #94a3b8; width: 100%;"></div>
+              </div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-step-header">
+                <span>2. Connection Request Sent</span>
+                <span id="funnel-sent-count">0 leads</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div id="funnel-sent" class="funnel-bar-fill" style="background: #06b6d4; width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-step-header">
+                <span>3. Connected & Accepted</span>
+                <span id="funnel-connected-count">0 leads</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div id="funnel-connected" class="funnel-bar-fill" style="background: #3b82f6; width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-step-header">
+                <span>4. Interview Scheduled</span>
+                <span id="funnel-interview-count">0 leads</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div id="funnel-interview" class="funnel-bar-fill" style="background: #f59e0b; width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="funnel-step">
+              <div class="funnel-step-header">
+                <span>5. Offers / Closed</span>
+                <span id="funnel-offer-count">0 leads</span>
+              </div>
+              <div class="funnel-bar-bg">
+                <div id="funnel-offer" class="funnel-bar-fill" style="background: #10b981; width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tips-grid">
+          <div class="tip-card">
+            <h4><span>💡</span> The 200-Character Free Rule</h4>
+            <p>LinkedIn free accounts strictly enforce a 200-character limit on invitations. Our AI generator stays around 150-185 characters so it pastes with 100% success.</p>
+          </div>
+          <div class="tip-card">
+            <h4><span>⏱️</span> Timing Follow-Ups</h4>
+            <p>Send Follow-up 1 strictly 2-3 business days after acceptance with a direct link to a relevant project or portfolio. Send Follow-up 2 (+5-7 days) as a low-pressure check-in.</p>
+          </div>
+          <div class="tip-card">
+            <h4><span>🛡️</span> Zero Ban Safety</h4>
+            <p>Because you review, copy, and send manually from this standalone assistant, your LinkedIn account remains 100% compliant with LinkedIn's terms of service.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================================
+           VIEW 5: CANDIDATE PROFILE & AI SETTINGS
+           ========================================================================= -->
+      <section id="view-settings" class="view-panel">
+        <div class="generator-grid">
+          <!-- Candidate Resume & Metrics Profile Form -->
+          <div class="card">
+            <h3 class="section-title" style="margin-bottom: 1.25rem;"><span>👤</span> Candidate Profile & Resume Metrics</h3>
+            
+            <form id="candidate-profile-form">
+              <div class="form-group">
+                <label class="form-label" for="candidate-name">Full Name</label>
+                <input type="text" id="candidate-name" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-headline">Professional Headline</label>
+                <input type="text" id="candidate-headline" class="form-input" placeholder="e.g. Senior Full Stack Engineer | React, Node, Python, LLMs">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-years">Years of Experience</label>
+                <input type="number" id="candidate-years" class="form-input" min="0" max="30" value="5">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-skills">Core Skills (comma-separated)</label>
+                <input type="text" id="candidate-skills" class="form-input" placeholder="Angular, .NET, React, TypeScript, Node.js, Python">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-achievements">Top 3 Metric-Driven Achievements (1 per line)</label>
+                <textarea id="candidate-achievements" class="form-textarea" rows="4" placeholder="Scaled production Angular + .NET apps reducing API latency by 42%&#10;Built automated CI/CD pipeline saving 15+ engineering hrs/week"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-portfolio">Portfolio / GitHub URL</label>
+                <input type="url" id="candidate-portfolio" class="form-input" placeholder="https://github.com/yourhandle">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="candidate-linkedin">LinkedIn Profile URL</label>
+                <input type="url" id="candidate-linkedin" class="form-input" placeholder="https://linkedin.com/in/yourhandle">
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <span>💾</span> Save Candidate Profile
+              </button>
+            </form>
+          </div>
+
+          <!-- AI Provider & System Configuration -->
+          <div class="card">
+            <h3 class="section-title" style="margin-bottom: 1.25rem;"><span>⚙️</span> AI Provider & Engine Settings</h3>
+
+            <form id="ai-settings-form">
+              <div class="form-group">
+                <label class="form-label" for="ai-provider-select">AI Generation Provider</label>
+                <select id="ai-provider-select" class="form-select">
+                  <option value="built_in" selected>🚀 Built-in Smart Heuristic Engine (Offline / Instant / Free)</option>
+                  <option value="gemini">✨ Google Gemini API (Direct LLM)</option>
+                  <option value="openai">🤖 OpenAI API (GPT-4o Mini)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="gemini-api-key">Gemini API Key (Optional)</label>
+                <input type="password" id="gemini-api-key" class="form-input" placeholder="AIzaSy...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="openai-api-key">OpenAI API Key (Optional)</label>
+                <input type="password" id="openai-api-key" class="form-input" placeholder="sk-proj-...">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="default-tone-select">Default Outreach Tone</label>
+                <select id="default-tone-select" class="form-select">
+                  <option value="value_first">💎 Value-First (Solution / Achievement)</option>
+                  <option value="metric_driven">📈 Metric-Driven (Hard Numbers)</option>
+                  <option value="conversational">🤝 Conversational (Peer-to-Peer)</option>
+                  <option value="mission_culture">🚀 Mission & Engineering Craft</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1.5rem;">
+                <span>💾</span> Save AI Configuration
+              </button>
+            </form>
+
+            <div style="padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+              <label class="form-label" style="margin-bottom: 0.5rem;">Demo & Storage Management</label>
+              <button id="btn-reset-sample-data" class="btn btn-secondary" style="width: 100%;">
+                <span>🔄</span> Reset Sample Dataset (Demo Leads & Candidate)
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: Lead Detail & Sequence Inspector -->
+  <div id="lead-detail-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-lead-title">Recruiter Details</h3>
+        <button id="modal-close-btn" class="close-btn">&times;</button>
+      </div>
+      <div id="modal-lead-body">
+        <!-- Injected dynamically by leads.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/ai-engine.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/kanban.js"></script>
+  <script src="js/leads.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
